@@ -18,7 +18,6 @@ import (
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
 	"golang.zx2c4.com/wireguard/tun/netstack"
-	"tailscale.com/net/socks5"
 )
 
 func main() {
@@ -57,7 +56,7 @@ func main() {
 	}
 	defer listener.Close()
 
-	srv := &socks5.Server{
+	srv := &Server{
 		Logf: log.Printf,
 		Dialer: func(ctx context.Context, network, address string) (net.Conn, error) {
 			return netStack.DialContext(ctx, network, address)
